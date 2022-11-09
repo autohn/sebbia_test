@@ -1,21 +1,23 @@
 import sebbiaapi from "../../src/api";
-import { use } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import DetailsPreloader from "./detailsPreloader";
 
-async function getData(id: number) {
-  const res = await fetch(sebbiaapi.news(id));
+async function getData(id: number, page: number = 0) {
+  const res = await fetch(sebbiaapi.news(id, page));
   return res.json();
 }
 
-export default function Page({ params }: any) {
-  //TODO разобраться почему с нормальным тайпингом ошибка https://stackoverflow.com/questions/74232736/search-params-for-server-components-in-next-js-13-app-directory
-  //{ params: { id: number } }
+export default async function Page({ params, searchParams }: any) {
+  //TODO возмодно баг некста https://github.com/vercel/next.js/issues/41884
+  /* { params: { id: number; }, searchParams: { page: number;}} */
   let id = params.id;
 
-  const news = use(getData(id));
+  let page = searchParams.page;
 
-  if (!Array.isArray(news)) {
+  const news = await getData(id, page);
+
+  if (news.code !== 0 || news.list.length == 0) {
     notFound();
   }
 
@@ -23,6 +25,7 @@ export default function Page({ params }: any) {
     <>
       {news.list.map((element: { id: number; name: string }, key: number) => (
         <li key={key}>
+          {/*           <DetailsPreloader></DetailsPreloader> */}
           <Link href={`/details/` + element.id}>{JSON.stringify(element)}</Link>
         </li>
       ))}{" "}
