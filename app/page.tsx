@@ -1,6 +1,7 @@
 import sebbiaapi from "../src/api";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ResetContext } from "./resetContext";
 
 async function getData() {
   const res = await fetch(sebbiaapi.categories);
@@ -16,13 +17,14 @@ export default async function Page() {
 
   return (
     <>
+      <ResetContext></ResetContext>
       {categories.list.map(
         (category: { id: number; name: string }, key: number) => (
           <li key={key}>
             <Link href={`/` + category.id}>{JSON.stringify(category)}</Link>
           </li>
         )
-      )}{" "}
+      )}
     </>
   );
 }

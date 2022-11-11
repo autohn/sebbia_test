@@ -2,6 +2,14 @@ import sebbiaapi from "../../src/api";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import DetailsPreloader from "./detailsPreloader";
+import { type } from "os";
+
+export type NewsType = {
+  id: number;
+  title: string;
+  date: string;
+  shortDescription: string;
+};
 
 async function getData(id: number, page: number = 0) {
   const res = await fetch(sebbiaapi.news(id, page));
@@ -23,12 +31,12 @@ export default async function Page({ params, searchParams }: any) {
 
   return (
     <>
-      {news.list.map((element: { id: number; name: string }, key: number) => (
+      <DetailsPreloader news={news.list}></DetailsPreloader>
+      {/*       {news.list.map((element: { id: number; name: string }, key: number) => (
         <li key={key}>
-          {/*           <DetailsPreloader></DetailsPreloader> */}
-          <Link href={`/details/` + element.id}>{JSON.stringify(element)}</Link>
+          <Link href={`/details/${element.id}`}>{JSON.stringify(element)}</Link>
         </li>
-      ))}{" "}
+      ))}{" "} */}
     </>
   );
 }

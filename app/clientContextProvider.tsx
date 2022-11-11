@@ -1,9 +1,25 @@
 "use client";
 
-import { createContext } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
+import { NewsType } from "./[id]/page";
 
-export const ThemeContext = createContext();
+type UserContextType = {
+  context: NewsType | null;
+  setContext: React.Dispatch<React.SetStateAction<NewsType | null>>;
+};
 
-export default function ThemeProvider({ children }) {
-  return <ThemeContext.Provider value="dark">{children}</ThemeContext.Provider>;
+const iUserContextState = {
+  context: null,
+  setContext: () => {},
+};
+
+export const LoadingContext = createContext<UserContextType>(iUserContextState);
+
+export default function LoadingProvider({ children }: any) {
+  const [context, setContext] = useState<NewsType | null>(null);
+
+  const value = useMemo(() => ({ context, setContext }), [context]);
+  return (
+    <LoadingContext.Provider value={value}>{children}</LoadingContext.Provider>
+  );
 }

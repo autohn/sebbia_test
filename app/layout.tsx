@@ -1,5 +1,6 @@
 import { useContext } from "react";
-import ThemeProvider from "./clientContextProvider";
+import LoadingProvider from "./clientContextProvider";
+import Header from "./header";
 
 export default function RootLayout({
   children,
@@ -8,10 +9,13 @@ export default function RootLayout({
 }) {
   return (
     <html>
-      <ThemeProvider>
+      <LoadingProvider>
         <head></head>
-        <body>{children}</body>
-      </ThemeProvider>
+        <body>
+          <Header></Header>
+          {children}
+        </body>
+      </LoadingProvider>
     </html>
   );
 }
