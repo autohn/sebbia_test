@@ -2,9 +2,15 @@
 
 import { useContext, useEffect } from "react";
 import { LoadingContext } from "../../clientContextProvider";
+import { NewsType } from "../../[id]/page";
+import { DetailsType } from "./page";
 
-export default function SimpleDesign() {
-  const { context, setContext } = useContext(LoadingContext);
+export default function SimpleDesign({ details }: { details: NewsType }) {
+  return (
+    <>
+      <p>{details.title}</p>
 
-  return <>{JSON.stringify(context)}</>;
+      <p>{details.shortDescription}</p>
+    </>
+  );
 }

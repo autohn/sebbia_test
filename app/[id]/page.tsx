@@ -16,12 +16,26 @@ async function getData(id: number, page: number = 0) {
   return res.json();
 }
 
-export default async function Page({ params, searchParams }: any) {
+export default async function Page({
+  params,
+  searchParams,
+}: {
+  params?: { id?: string };
+  searchParams?: { page?: string };
+}) {
   //TODO возмодно баг некста https://github.com/vercel/next.js/issues/41884
   /* { params: { id: number; }, searchParams: { page: number;}} */
-  let id = params.id;
+  /*  console.log("------------");
+  console.log(a);
+  console.log("------------");
 
-  let page = searchParams.page;
+   let params = { id: 0 };
+
+  let searchParams = { page: 0 };
+ */
+  let id = parseInt(params?.id ?? "0");
+
+  let page = parseInt(searchParams?.page ?? "0");
 
   const news = await getData(id, page);
 
@@ -31,12 +45,13 @@ export default async function Page({ params, searchParams }: any) {
 
   return (
     <>
-      <DetailsPreloader news={news.list}></DetailsPreloader>
-      {/*       {news.list.map((element: { id: number; name: string }, key: number) => (
-        <li key={key}>
-          <Link href={`/details/${element.id}`}>{JSON.stringify(element)}</Link>
-        </li>
-      ))}{" "} */}
+      <ul>
+        {news.list.map((element: NewsType, key: number) => (
+          <li key={key}>
+            <DetailsPreloader element={element}></DetailsPreloader>
+          </li>
+        ))}
+      </ul>
     </>
   );
 }

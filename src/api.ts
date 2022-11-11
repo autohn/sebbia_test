@@ -2,7 +2,7 @@ class sebbiaapi {
   static baseUrl = "http://testtask.sebbia.com/v1";
   static categories = this.baseUrl + "/news/categories/";
 
-  static news(id: number, page: number = 0) {
+  static news(id: number, page: number) {
     return `${this.baseUrl}/news/categories/${id}/news?page=${page}`;
   }
 

@@ -7,11 +7,11 @@ import SimpleDesign from "./details/[id]/simpleDesign";
 
 export default function Loading() {
   const { context, setContext } = useContext(LoadingContext);
+
   if (context) {
     return (
       <>
-        <SimpleDesign></SimpleDesign>
-        {/*       loading{JSON.stringify(userName)} */}
+        <SimpleDesign details={context}></SimpleDesign>
       </>
     );
   } else {

@@ -6,7 +6,7 @@ import { LoadingContext } from "../clientContextProvider";
 import Link from "next/link";
 import { NewsType } from "./page";
 
-export default function DetailsPreloader({ news }: any) {
+export default function DetailsPreloader({ element }: { element: NewsType }) {
   const { context, setContext } = useContext(LoadingContext);
   useEffect(() => {
     setContext(null);
@@ -19,16 +19,9 @@ export default function DetailsPreloader({ news }: any) {
 
   return (
     <>
-      {news.map((element: NewsType, key: number) => (
-        <li key={key}>
-          <Link
-            onClick={() => onClick(element)}
-            href={`/details/${element.id}`}
-          >
-            {JSON.stringify(element)}
-          </Link>
-        </li>
-      ))}
+      <Link onClick={() => onClick(element)} href={`/details/${element.id}`}>
+        {JSON.stringify(element)}
+      </Link>
     </>
   );
 }
