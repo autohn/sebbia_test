@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import LoadingProvider from "./clientContextProvider";
 import Header from "./header";
+import "../styles/globals.css";
 
 export default function RootLayout({
   children,
@@ -10,7 +11,12 @@ export default function RootLayout({
   return (
     <html>
       <LoadingProvider>
-        <head></head>
+        <head>
+          <meta
+            name="viewport"
+            content="initial-scale=1.0, width=device-width"
+          />
+        </head>
         <body>
           <Header></Header>
           {children}

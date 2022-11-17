@@ -16,11 +16,21 @@ export default function DetailsPreloader({ element }: { element: NewsType }) {
   function onClick(element: NewsType) {
     setContext(element);
   }
+  const date = new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(Date.parse(element.date));
 
   return (
     <>
       <Link onClick={() => onClick(element)} href={`/details/${element.id}`}>
-        {JSON.stringify(element)}
+        {/*  {JSON.stringify(element)} */}
+        <p className="text-center pb-5">{date}</p>
+
+        <p className="text-center pb-10">{element.title}</p>
+
+        <p className="text-center text-sm"> {element.shortDescription}</p>
       </Link>
     </>
   );

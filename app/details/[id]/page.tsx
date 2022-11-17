@@ -18,7 +18,7 @@ async function getData(id: number) {
 }
 
 export default async function Page({ params }: { params?: { id?: string } }) {
-  let id = parseInt(params?.id ?? "0");
+  const id = parseInt(params?.id ?? "0");
 
   const details = await getData(id);
 

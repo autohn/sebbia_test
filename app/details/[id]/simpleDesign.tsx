@@ -8,9 +8,11 @@ import { DetailsType } from "./page";
 export default function SimpleDesign({ details }: { details: NewsType }) {
   return (
     <>
-      <p>{details.title}</p>
+      <div className="">
+        <p>{details.title}</p>
 
-      <p>{details.shortDescription}</p>
+        <p>{details.shortDescription}</p>
+      </div>
     </>
   );
 }

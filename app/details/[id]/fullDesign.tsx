@@ -8,9 +8,11 @@ export default function FullDesign({ details }: { details: DetailsType }) {
 
   return (
     <>
-      {details.title}
+      <div className="">
+        <p>{details.title}</p>
 
-      <div dangerouslySetInnerHTML={{ __html: clean }} />
+        <p dangerouslySetInnerHTML={{ __html: clean }} />
+      </div>
     </>
   );
 }

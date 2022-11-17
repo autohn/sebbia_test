@@ -8,13 +8,13 @@ import SimpleDesign from "./details/[id]/simpleDesign";
 export default function Loading() {
   const { context, setContext } = useContext(LoadingContext);
 
-  if (context) {
-    return (
-      <>
+  return (
+    <>
+      {context ? (
         <SimpleDesign details={context}></SimpleDesign>
-      </>
-    );
-  } else {
-    return <>Loading</>;
-  }
+      ) : (
+        <div className="">Loading...</div>
+      )}
+    </>
+  );
 }
