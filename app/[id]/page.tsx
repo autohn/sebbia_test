@@ -2,7 +2,6 @@ import sebbiaapi from "../../src/api";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import DetailsPreloader from "./detailsPreloader";
-import { type } from "os";
 
 export type NewsType = {
   id: number;
@@ -14,7 +13,6 @@ export type NewsType = {
 async function getNews(id: number, page: number = 0) {
   const news = await fetch(sebbiaapi.news(id, page));
 
-  //return Promise.all([news.json(), nextnews.json()]);
   return news.json();
 }
 
@@ -31,16 +29,6 @@ export default async function Page({
   params?: { id?: string };
   searchParams?: { page?: string };
 }) {
-  //TODO возмодно баг некста https://github.com/vercel/next.js/issues/41884
-  /* { params: { id: number; }, searchParams: { page: number;}} */
-  /*  console.log("------------");
-  console.log(a);
-  console.log("------------");
-
-   let params = { id: 0 };
-
-  let searchParams = { page: 0 };
- */
   const id = parseInt(params?.id ?? "0");
 
   const page = parseInt(searchParams?.page ?? "0");
@@ -90,4 +78,3 @@ export default async function Page({
     </>
   );
 }
-//page - 1 >= 0 && isNextPage

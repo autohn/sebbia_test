@@ -1,6 +1,4 @@
 "use client";
-
-import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import { LoadingContext } from "./clientContextProvider";
 import SimpleDesign from "./details/[id]/simpleDesign";

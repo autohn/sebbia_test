@@ -8,24 +8,35 @@ export type CategoryType = {
   name: string;
 };
 
-async function getData() {
-  const res = await (await fetch(sebbiaapi.categories)).json();
+export type CategoriesType = {
+  list: CategoryType[];
+};
 
-  const categories: CategoryType[] = [];
-  await Promise.all(
-    res.list.map(async (category: CategoryType, key: number) => {
-      const news = await (await fetch(sebbiaapi.news(category.id, 0))).json();
-      if (news.list.length != 0) {
-        categories.push(res.list[category.id]);
-      }
-    })
-  );
+async function getCategories(): Promise<CategoriesType> {
+  const categories = await (await fetch(sebbiaapi.categories)).json();
 
   return categories;
 }
 
+async function getNotEmptyCategories(): Promise<CategoryType[]> {
+  const allCategories = await getCategories();
+
+  const categories: CategoryType[] = [];
+
+  await Promise.all(
+    allCategories.list.map(async (category: CategoryType, key: number) => {
+      const news = await (await fetch(sebbiaapi.news(category.id, 0))).json();
+      if (news.list.length != 0) {
+        categories.push(allCategories.list[category.id]);
+      }
+    })
+  );
+
+  return categories.sort((a, b) => a.id - b.id);
+}
+
 export default async function Page() {
-  const categories = (await getData()).sort((a, b) => a.id - b.id);
+  const categories = await getNotEmptyCategories();
 
   if (!Array.isArray(categories)) {
     notFound();

@@ -1,5 +1,4 @@
 import sebbiaapi from "../../../src/api";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import FullDesign from "./fullDesign";
 import { ResetContext } from "../../resetContext";
